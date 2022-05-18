@@ -52,7 +52,7 @@ class Probemarks_detection(object):
             close_pad2=cv2.dilate(close_pad2,None, iterations=3) #1
             close_pad2=cv2.erode(close_pad2,None, iterations=1) 
             close_pad2=cv2.dilate(close_pad2,None, iterations=2)
-            #cv2.imshow(str(nb_pad), thresh)
+            #cv2.imshow(str(nb_pad), close_pad2)
             
             #We find the contours of the probemarks on the cropped image
             contours_pad, hierarchy1_pad = cv2.findContours(close_pad, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
@@ -110,9 +110,12 @@ class Probemarks_detection(object):
             return(self.list_pad_mark)
         
         
-      def single_probemark_list(self,list_pad_mark):
+      def single_probemark_list(self,list_pad_mark,PMI_type):
             #Eliminate double probemark detection on a single pad
-            self.list_pad_mark.sort(reverse=True,key=itemgetter(2)) #Sorted from the biggest to the smallest probemark
+            if PMI_type=='ASIC':
+                self.list_pad_mark.sort(reverse=False,key=itemgetter(2)) #Sorted from the smallest to the biggest probemark
+            else:
+                self.list_pad_mark.sort(reverse=True,key=itemgetter(2)) #Sorted from the biggest to the smallest probemark
             list_single_pad_mark=[]
             for i in range(len(self.list_pad_mark)-1):   
                 idx_c=0

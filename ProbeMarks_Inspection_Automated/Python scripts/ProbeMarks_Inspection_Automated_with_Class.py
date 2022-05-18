@@ -183,7 +183,7 @@ for filename in files:
             #            list_pad_mark[-1].append(List_pad_name[nb_pad])
 
         #Eliminate double probemark detection on a single pad
-        list_single_pad_mark = probemark.single_probemark_list(list_pad_mark)
+        list_single_pad_mark = probemark.single_probemark_list(list_pad_mark,PMI_type)
         
         clone = img.copy()
         #Draw detected probemark
